@@ -1,0 +1,276 @@
+/**
+ * Represents main Controller for the game
+ * System
+ * @author Jordan Kidney
+ * @version 1.0
+ * Last Modified: March 14, 2014 - Created (By Jordan Kidney)
+ */
+
+import java.io.*;
+import java.util.*;
+import userCommunication.*;
+import userCommunication.Options.*;
+import utility.*;
+import gameWorld.*;
+
+public class TheWalkingCodeGame implements Command
+{
+    //constants for user controls
+    public static final String       EAST = "a";
+    public static final String NORTH_EAST = "q";
+    public static final String      NORTH = "w";
+    public static final String NORTH_WEST = "e";
+    public static final String       WEST = "d";
+    public static final String SOUTH_WEST = "c";
+    public static final String      SOUTH = "s";
+    public static final String SOUTH_EAST = "z";
+    public static final String LIST_STATE = "list";
+    public static final String[] ALL_ACTIONS = 
+        { EAST, NORTH_EAST,NORTH, NORTH_WEST, WEST, SOUTH, SOUTH_WEST, SOUTH_EAST, LIST_STATE};
+
+    public static final String[] ALL_ACTIONS_DES = 
+        { "Move East","Move North East","Move North","Move North West", 
+            "Move West","Move South","Move South West","Move South East", 
+            "List current game state"
+        };
+
+    //instance variables
+    private CmdLineReader commandLineReader;
+    private UserInteraction comm;
+    private Shell gameShell;
+    private boolean endGame;
+    private int user_moves_count;
+    private GridWorld world;
+
+    public TheWalkingCodeGame()
+    {
+        comm = new UserInteraction();
+        endGame = false;
+        user_moves_count=0;
+    }
+
+    /**
+     * Startup method for the game
+     * @param args command line arguments passed to the program
+     */
+    public void run(String[] args) throws FileNotFoundException
+    {
+        String fileName = null;
+        setUp(args);
+        BooleanOption debug = (BooleanOption) commandLineReader.getOption("debug");
+        StringOption file = (StringOption) commandLineReader.getOption("file");
+
+        comm.setDebug(true); // here for testing set to false to turn off debug messages at the start
+
+        if(file.isSet()) fileName = file.getValue();
+        else
+            fileName = comm.getInput_String("Enter game file name: ");  
+
+        if( loadGameFile(fileName) )
+        {
+
+            gameShell.showStartMessage();
+
+            do
+            {
+                printWorld();
+                Option userAction = gameShell.runSingleCommand();
+
+                if(userAction != null)
+                {
+                    switch(userAction.getName().toLowerCase())
+                    {
+                        case "debug": comm.setDebug( debug.getValue() ); 
+                        GameRandomNumber.setDebug(debug.getValue() ); 
+                        break; // in case the debug value changed in the shell
+                        case  "grid": world.setPrintGrid( ((BooleanOption)userAction).getValue()); break;                      
+                    }
+                }
+                else if(gameShell.getEnd() == true) endGame = true;
+
+            }
+            while(!endGame);
+            comm.println("Exiting game");
+        }
+        else
+        {
+            comm.println("Unable to open the game file");
+        }
+    }
+
+    /**
+     * 
+     */
+    private void printWorld()
+    {
+        comm.clearBlueJTerminal();
+        comm.println("User move count: " + user_moves_count);
+        world.print(comm);
+    }
+
+    /**
+     * sets up all basic objects for the beginning of the game
+     * @param args command line arguments passed to the program
+     */
+    private void setUp(String[] args)
+    {
+        setUpCommandLineReader();
+        setUpShell();
+        gameShell.conectCmdLineOptions(commandLineReader);
+        commandLineReader.checkCmdLine(args);
+    }
+
+    /**
+     * sets up all basic information for the command line reader
+     */
+    private void setUpCommandLineReader()
+    {
+        commandLineReader = new CmdLineReader();
+        commandLineReader.addOption( new BooleanOption("Debug","Control output of debug messages (arg=TRUE/FALSE)") );
+        commandLineReader.addOption( new StringOption("file", "control startup file (arg=filename)") ); 
+    }
+
+    /**
+     * Sets up all basic information and commands used for the shell interface
+     */
+    private void setUpShell()
+    {
+        gameShell = new Shell(comm);
+
+        gameShell.addOption( new BooleanOption("grid", "turn the gird on and off ( eg grid true ")  );
+
+        for(int index=0; index < ALL_ACTIONS.length; index++)
+        {
+            gameShell.addOption(new StringExecCmdOption(ALL_ACTIONS[index], ALL_ACTIONS_DES[index], this) );
+        }
+    }
+
+    /**
+     * Called by the shell when a user specific command is executed by the shell
+     * @param opt the command that was executed by the user
+     */
+    public void execute(Option opt) 
+    {
+        String command = opt.getName().toLowerCase();
+        comm.println_debug("Command: " + command);
+
+        //execute the users requested action
+        switch(command)
+        {
+            case       EAST: 
+            case NORTH_EAST: 
+            case      NORTH: 
+            case NORTH_WEST: 
+            case       WEST:
+            case SOUTH_WEST: 
+            case      SOUTH:
+            case SOUTH_EAST: 
+            runUserMoveAction(command); 
+
+            break;
+            case LIST_STATE: listGameState(); break;
+        }
+
+    }
+
+    /**
+     * Called to execute a move action from the user
+     * @param direction
+     */
+    private void runUserMoveAction(String direction)
+    {
+        //TODO: COMPLETE THIS METHOD AND REMOVE THIS COMMENT 
+        switch(direction)
+        {
+            case       EAST: comm.println("Move East"); break;
+            case NORTH_EAST: comm.println("Move North East"); break;
+            case      NORTH: comm.println("Move North"); break;
+            case NORTH_WEST: comm.println("Move North West"); break;
+            case       WEST: comm.println("Move West"); break;
+            case SOUTH_WEST: comm.println("Move South West"); break;
+            case SOUTH_EAST: comm.println("Move South East"); break;
+            case      SOUTH: comm.println("Move South"); break;
+        }
+        user_moves_count++;
+    }
+
+    /**
+     * lists out the current state of all game objects
+     */
+    private void listGameState()
+    {
+        //TODO: COMPLETE THIS METHOD AND REMOVE THIS COMMENT 
+        //must cleanly list out all state information for every
+        //world object
+        comm.println_debug("Executing listGameState() ....");
+
+        comm.pause();
+    }
+
+    /**
+     * loads in all data from the game file
+     * @param fileName the file to load data from
+     * @return true if file loaded properly, false otherwise
+     */
+    private boolean loadGameFile(String fileName) throws FileNotFoundException, IllegalArgumentException
+    {      
+        String[] brokenNames = fileName.split("\\.");
+        File file = new File("input/" + brokenNames[0] + ".txt");
+        try
+        {
+            if(file.exists() == false)
+            {
+                throw new FileNotFoundException();
+            }
+            
+            GameFileReader fileReader = new GameFileReader(fileName);
+            if(fileReader.fileError() == true)
+            {
+                throw new IllegalArgumentException();
+            }
+            world = new GridWorld(fileReader.worldRow(), fileReader.worldCol());
+
+            WorldCharacter user = fileReader.getUser();
+            world.place(user);
+
+            ArrayList<WorldCharacter> enemies;
+            if(fileReader.getEnemies().size() > 0)
+            {
+                enemies = fileReader.getEnemies();
+            }
+            else
+            {
+                enemies = new ArrayList<WorldCharacter>();
+            }
+            
+            ArrayList<Wall> walls;
+            if(fileReader.getWalls().size() > 0)
+            {
+                walls = fileReader.getWalls();
+            }
+            else
+            {
+                walls = new ArrayList<Wall>();
+            }
+
+            for(int index = 0; index < enemies.size(); index++)
+            {
+                world.place( enemies.get(index) );
+            }
+            
+            for(int index = 0; index < walls.size(); index++)
+            {
+                world.place( walls.get(index) );
+            }
+            
+            world.setPrintGrid(false);
+            return true;
+        }
+
+        catch(FileNotFoundException error)
+        {
+            System.out.println("===FILE NOT FOUND===");
+            return false;
+        }
+    }
+}
