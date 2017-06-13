@@ -1,0 +1,18 @@
+#BlueJ class context
+comment0.params=row\ col\ health\ strength\ weapon
+comment0.target=WorldCharacter(int,\ int,\ int,\ int,\ Weapon)
+comment1.params=row\ col\ health\ name
+comment1.target=WorldCharacter(int,\ int,\ int,\ java.lang.String)
+comment2.params=row\ col\ health\ name\ weapon
+comment2.target=WorldCharacter(int,\ int,\ int,\ java.lang.String,\ Weapon)
+comment3.params=row\ col\ health\ name\ weapon1\ weapon2
+comment3.target=WorldCharacter(int,\ int,\ int,\ java.lang.String,\ Weapon,\ Weapon)
+comment4.params=row\ col\ health\ name\ stumble\ weapon
+comment4.target=WorldCharacter(int,\ int,\ int,\ java.lang.String,\ int,\ Weapon)
+comment5.params=
+comment5.target=boolean\ canAttack()
+comment6.params=
+comment6.target=int\ attack()
+comment7.params=
+comment7.target=java.lang.String\ toString()
+numComments=8

@@ -1,0 +1,29 @@
+package gameWorld;
+
+public class Rat extends MoveableObject
+{
+    private int row;
+    private int col;
+    private char displayChar;
+    private boolean canMoveTo;
+    private int health;
+
+    public Rat(int row, int col, boolean canMoveTo, int health)
+    {
+        super(row, col, 'R', canMoveTo);
+        this.health = health;
+    }
+
+    public int getHealth()
+    {
+        return health;
+    }
+
+    public void decreaseHealth()
+    {
+        if(health > 0)
+        {
+            health - 10;
+        }
+    }
+}

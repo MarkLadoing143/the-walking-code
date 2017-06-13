@@ -1,0 +1,19 @@
+package gameWorld;
+
+public class Zombie extends MoveableObject
+{
+    private int row;
+    private int col;
+    private boolean canMoveTo;
+    private int health;
+    private Weapon weapon1;
+    private Weapon weapon2;
+     
+    public Zombie(int row, int col, char type, boolean canMoveTo, int health)
+    {
+        super(row, col, type, canMoveTo);
+        this.health = health;
+        
+        //if type == D;F;FS => set these parts for later
+    }
+}

@@ -1,0 +1,51 @@
+package gameWorld;
+
+public class Weapon
+{
+    private String name;
+    private int power;
+    private int weight;
+
+    private int attackDamage;
+
+    public Weapon(String name, int power, int weight)
+    {
+        this.name = name;
+        this.power = power;
+        
+        if(power > 0)
+        {
+            this.power = power;
+        }
+        else
+        {
+            power = 1;
+        }
+        
+        if(weight > 0)
+        {
+            this.weight = weight;
+        }
+        else
+        {
+            weight = 0;
+        }
+
+        switch(name)
+        {
+            case "FIST":
+            case "CROWBAR":
+            attackDamage = power;
+            break;
+            case "CHAINSAW":
+            attackDamage = (2 * power);
+            break;
+            case "BASEBALLBAT":
+            attackDamage = (weight * power);
+            break;
+            case "THESHOTGUN":
+            attackDamage = (666 * power);
+            break;
+        }
+    }
+}

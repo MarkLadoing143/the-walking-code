@@ -1,0 +1,100 @@
+package gameWorld;
+
+public class Character extends WorldEntity
+{
+    //inheriting row, col, displayChar
+    private int health;
+    private String name;
+    private int strength;
+    private boolean duelWelding;
+    private Weapon weapon1;
+    private Weapon weapon2;
+    
+    public Character(int row, int col, int health, int strength)
+    {
+        super(row, col, 'U');
+        name = "User";
+        this.health = health;
+        this.strength = strength;
+        duelWelding = false;
+        this.weapon1 = new Weapon("FIST", 0, 0);
+        this.weapon2 = null; 
+    }
+
+    public Character(int row, int col, int health, int strength, Weapon weapon1)
+    {
+        super(row, col, 'U');
+        name = "User";
+        this.health = health;
+        this.strength = strength;
+        duelWelding = false;
+        this.weapon1 = weapon1;
+        this.weapon2 = null; 
+    }
+
+    public Character(int row, int col, int health, String name, char displayCharacter)
+    {
+        super(row, col, displayCharacter);
+        this.name = name;
+        this.health = health;
+        strength = 0;
+        
+        if(displayCharacter == 'F')
+        {
+            duelWelding = true;
+            this.weapon2 = new Weapon("FIST", 0, 0);
+        }
+        else
+        {
+            duelWelding = false;
+            this.weapon2 = null;
+        }
+        
+        this.weapon1 = new Weapon("FIST", 0, 0);
+    }
+
+    public Character(int row, int col, int health, String name, char displayCharacter, Weapon weapon1)
+    {
+        super(row, col, displayCharacter);
+        this.name = name;
+        this.health = health;
+        strength = 0;
+        
+        if(displayCharacter == 'F')
+        {
+            duelWelding = true;
+            this.weapon2 = new Weapon("FIST", 0, 0);
+        }
+        else
+        {
+            duelWelding = false;
+            this.weapon2 = null;
+        }
+        
+        this.weapon1 = weapon1;
+    }
+
+    public Character(int row, int col, int health, String name, char displayCharacter, Weapon weapon1, Weapon weapon2)
+    {
+        super(row, col, displayCharacter);
+        this.name = name;
+        this.health = health;
+        strength = 0;
+        duelWelding = true;
+        this.weapon1 = weapon1;
+        this.weapon2 = weapon2; 
+    }
+    
+    public int useWeapons()
+    {
+        if(duelWelding == true)
+        {
+            int damage = weapon1.damage() + weapon2.damage();
+            return damage;
+        }
+        else
+        {
+            return weapon1.damage();
+        }
+    }
+}

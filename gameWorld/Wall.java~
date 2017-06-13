@@ -1,0 +1,9 @@
+package gameWorld;
+
+public class Wall extends WorldEntity
+{
+    public Wall(int row, int col, boolean canMoveOnTo)
+    {
+        super(row, col, '#', true);
+    }
+}

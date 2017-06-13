@@ -1,0 +1,30 @@
+#BlueJ class context
+comment0.params=row\ col\ displayCharacter
+comment0.target=WorldEntity(int,\ int,\ char)
+comment0.text=\r\n\ default\ constructor\r\n\ @param\ row\ the\ row\ location\ of\ the\ object\r\n\ @param\ col\ the\ column\ location\ of\ the\ object\r\n\ @param\ displayCharacter\ the\ character\ used\ to\ display\ the\ object\r\n
+comment1.params=row\ col\ displayCharacter\ canMoveOnTo
+comment1.target=WorldEntity(int,\ int,\ char,\ boolean)
+comment1.text=\r\n\ Constructor\r\n\ @param\ row\ the\ row\ location\ of\ the\ object\r\n\ @param\ col\ the\ column\ location\ of\ the\ object\r\n\ @param\ canMoveOnTo\ if\ the\ object\ can\ be\ moved\ onto\ or\ not\r\n
+comment10.params=displayCharacter
+comment10.target=void\ setDisplayCharacter(char)
+comment11.params=
+comment11.target=java.lang.String\ toString()
+comment2.params=
+comment2.target=boolean\ canMoveOnTo()
+comment2.text=\r\n\ used\ to\ indicate\ if\ another\ Entity\ is\ allowed\ to\r\n\ stand\ on,\ or\ be\ located\ at\ the\ same\ location\r\n\ as\ the\ current\ entity\r\n\ @return\ true\ \=\ yes,\ false\ \=\ no\r\n
+comment3.params=
+comment3.target=int\ getRow()
+comment4.params=value
+comment4.target=void\ setRow(int)
+comment5.params=
+comment5.target=int\ getCol()
+comment6.params=value
+comment6.target=void\ setCol(int)
+comment7.params=row\ col
+comment7.target=void\ setLocation(int,\ int)
+comment8.params=entity
+comment8.target=boolean\ isStandingOn(WorldEntity)
+comment8.text=\r\n\ Determines\ if\ the\ current\ entity\ is\ occupying\ the\ same\ location\ as\ the\ given\ entity\r\n\ @param\ entity\r\n\ @return\ true\ of\ occupy\ same\ location,\ false\ otherwise\r\n
+comment9.params=
+comment9.target=char\ getDisplayCharacter()
+numComments=12

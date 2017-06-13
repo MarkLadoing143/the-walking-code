@@ -1,0 +1,60 @@
+package gameWorld;
+
+public class User extends MoveableObject
+{
+    private int row;
+    private int col;
+    private char displayChar;
+    private boolean canMoveTo;
+    private int health;
+    private int strength;
+    private int scared;
+    private Weapon weapon;
+    
+    public User(int row, int col, boolean canMoveTo, int health, int strength)
+    {
+        super(row, col, 'U', canMoveTo);
+        this.health = health;
+        this.strength = strength;
+        scared = 1;
+        
+        if(strength > 100)
+        {
+            strength = 100;
+        }
+        else if(strength <= 0)
+        {
+            strength = 1;
+        }
+    }
+    
+    public void takeDamage(int damage)
+    {
+        health -= damage;
+    }
+    
+    private void restoreHealth(int restore)
+    {
+        health += restore;
+    }
+    
+    public void increaseScare()
+    {
+        scared++;
+    }
+    
+    public int getStrength()
+    {
+        return strength;
+    }
+    
+    public int getHealth()
+    {
+        return health;
+    }
+    
+    public int getScared()
+    {
+        return scared;
+    }
+}
