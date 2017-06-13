@@ -1,0 +1,22 @@
+#BlueJ class context
+comment0.params=fileName
+comment0.target=GameFileReader(java.lang.String)
+comment1.params=
+comment1.target=gameWorld.Weapon\ buildWeapon()
+comment2.params=
+comment2.target=boolean\ fileError()
+comment3.params=
+comment3.target=void\ listData()
+comment4.params=
+comment4.target=gameWorld.WorldCharacter\ getUser()
+comment5.params=
+comment5.target=gameWorld.EndPoint\ getEnd()
+comment6.params=
+comment6.target=java.util.ArrayList\ getEnemies()
+comment7.params=
+comment7.target=java.util.ArrayList\ getWalls()
+comment8.params=
+comment8.target=int\ worldRow()
+comment9.params=
+comment9.target=int\ worldCol()
+numComments=10

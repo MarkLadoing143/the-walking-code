@@ -1,0 +1,78 @@
+package utility;
+
+import java.io.*;
+import java.util.*;
+import gameWorld.*;
+public class FileReader
+{
+    private Scanner fileReader;
+    private File file;
+    
+    private int worldRowSize;
+    private int worldColSize;
+    private int endPointRow;
+    private int endPointCol;
+    
+    private WorldCharacter user;
+    //private Wall[] walls;
+    //private WorldCharacter[] enemies;
+    private ArrayList<Wall> walls;
+    private ArrayList<WorldCharacter> enemies;
+    
+    public FileReader(String fileName) throws FileNotFoundException
+    {
+        String[] brokenNames = fileName.split("\\.");
+        file = new File(brokenNames[0] + ".txt");
+        
+        try
+        {
+            fileReader = new Scanner(file);
+            //add code around here to remove all whitespace in file on April 4
+            //place all worlds to upper case in file (string.touppercase)
+            
+            String[] worldSize = fileReader.nextLine().split(",");
+            worldRowSize = Integer.parseInt(worldSize[0]);
+            worldColSize = Integer.parseInt(worldSize[1]);
+            
+            String[] endPoint = fileReader.nextLine().split(",");
+            endPointRow = Integer.parseInt(endPoint[0]);
+            endPointCol = Integer.parseInt(endPoint[1]);
+            
+            String[] userInfo = fileReader.nextLine().split(",");
+            int userRow = Integer.parseInt(userInfo[0]);
+            int userCol = Integer.parseInt(userInfo[1]);
+            int userHealth = Integer.parseInt(userInfo[2]);
+            int userStrength = Integer.parseInt(userInfo[3]);
+            user = new WorldCharacter(userRow, userCol, userHealth, userStrength);
+            
+            while (fileReader.hasNextLine())
+            {
+                String[] objectData = fileReader.nextLine().split(",");
+                int objectRow = Integer.parseInt(objectData[0]);
+                int objectCol = Integer.parseInt(objectData[1]);
+                String objectType = objectData[2];
+                
+                switch(objectType)
+                {
+                    case "WALL":
+                    walls.add(new Wall(objectRow, objectCol));
+                    break;
+                    case "RAT":
+                    String name = objectData[2];
+                    char displayChar = name.charAt(0);
+                    int health = Integer.parseInt(objectData[3]);
+                    //enemies.add(new WorldCharacter(objectRow, objectCol, name
+                    break;
+                    case "DZ":
+                    case "FZ":
+                    case "FSZ":
+                }
+            }
+            
+        }
+        catch(Exception error) //fix FNF exceptions later on April 4
+        {
+            System.out.println("===ERROR WHILE READING FILE===");
+        }
+    }
+}
